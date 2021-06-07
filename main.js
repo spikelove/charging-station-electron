@@ -19,7 +19,7 @@ global.charge = {
   gunRightAddr:1,
 }
 
-var stationRunFlag = true
+var stationRunFlag = false
 
 ipcMain.on('index-done', (event, arg) => {
     if (!stationRunFlag) {
@@ -38,7 +38,7 @@ function createWindow() {
         width: 1920,
         height: 1080,
         titleBarStyle: 'hidden',
-        fullscreen: true,
+     //   fullscreen: true,
         webPreferences: {
             nodeIntegration: true,
             contextIsolation: false,

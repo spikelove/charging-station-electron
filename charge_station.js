@@ -4,18 +4,8 @@ const { app, BrowserWindow, ipcMain } = require('electron')
 
 var stationServer = new StationServer()
 
-/* app station status */
-const APP_STA_DEFAULT   = 0
-const APP_STA_IDLE      = 1
-const APP_STA_CHARGING  = 3
-const APP_STA_FAULT     = 6 
-
-/* app charge mode */
-const APP_MODE_DEFAULT  = 0
-const APP_MODE_TIME     = 1
-const APP_MODE_POWER    = 2
-const APP_MODE_MONEY    = 3
-const APP_MODE_AUTOFULL = 4
+var mIntGetIpc = null
+var mIntSetIpc = null
 
 ipcMain.on('start-charge', (event, arg) => {
     console.log("ui start charge >>>>>")
@@ -25,6 +15,16 @@ ipcMain.on('start-charge', (event, arg) => {
 ipcMain.on('stop-charge', (event, arg) => {
     console.log("ui start charge >>>>>")
     stationServer.stopCharge(global.charge.gunLeftAddr)
+})
+
+ipcMain.on('int-get', (event, arg) => {
+    mIntGetIpc = event
+    stationServer.getIntParam(parseInt(arg))
+})
+
+ipcMain.on('int-set', (event, arg) => {
+    mIntSetIpc = event
+    stationServer.setIntParam(parseInt(arg.addr), parseInt(arg.val))
 })
 
 function ChargeStation() {
@@ -47,10 +47,22 @@ function ChargeStation() {
         }
     }
 
+    function onStationNotify(event, msg) {
+        if (event == 'int-get') {
+            if (mIntGetIpc != null) {
+                mIntGetIpc.reply('int-get', msg)
+            }
+        } else if (event == 'int-set') {
+            if (mIntSetIpc != null) {
+                mIntSetIpc.reply('int-set', msg)
+            }
+        }
+    }
+
     function run() {
         //gunLeftClient.run(global.charge.gunLeftNum, onGunLeftNotify);
         //gunRightClient.run(global.charge.gunRightNum, onGunRightNotify);
-        stationServer.run()
+        stationServer.run(onStationNotify)
     }
 
     return {

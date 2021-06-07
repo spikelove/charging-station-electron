@@ -3,7 +3,7 @@ const net = require('net')
 function TcpServer() {
     let clientSocket = null;
 
-    function start(port, notify) {
+    function start(port, onRecv) {
         let tcpServer = net.createServer();
 
         tcpServer.listen(port, function() {
@@ -11,12 +11,11 @@ function TcpServer() {
         })
 
         tcpServer.on('connection', function (socket) {
-            //notify('connection', null)
             console.log('tcp server : accept new connetc .');
             clientSocket = socket;
 
             socket.on('data', function (data) {
-                notify('data', data);
+                onRecv(data);
             })
 
             socket.on('end', function () {
@@ -31,7 +30,9 @@ function TcpServer() {
     }
 
     function send(data) {
-        clientSocket.write(data);
+        if (clientSocket != null) {
+            clientSocket.write(data);
+        }
     }
 
     return {

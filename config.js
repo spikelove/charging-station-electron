@@ -39,9 +39,36 @@ function onStopCharge() {
     ipcRenderer.send('stop-charge', null)
 }
 
+// int-get 应答
+ipcRenderer.on('int-get', (event, arg) => {
+    document.getElementById('intReturnVal').innerHTML = arg
+})
+
+function onIntGetBtn() {
+    addr = document.getElementById('intAddrInput').value
+    ipcRenderer.send('int-get', addr)
+    document.getElementById('intReturnVal').innerHTML = '正在执行 . . .'
+}
+
+// int-set 应答
+ipcRenderer.on('int-set', (event, arg) => {
+    document.getElementById('intReturnVal').innerHTML = arg
+})
+
+function onIntSetBtn() {
+    var msg = {}
+    msg.addr = document.getElementById('intAddrInput').value
+    msg.val = document.getElementById('intValInput').value
+    ipcRenderer.send('int-set', msg)
+    document.getElementById('intReturnVal').innerHTML = '正在执行 . . .'
+}
+
 document.getElementById('configBtn').addEventListener('click', onConfigBtn)
 document.getElementById('startChargeBtn').addEventListener('click', onStartCharge)
 document.getElementById('stopChargeBtn').addEventListener('click', onStopCharge)
+
+document.getElementById('intGetBtn').addEventListener('click', onIntGetBtn)
+document.getElementById('intSetBtn').addEventListener('click', onIntSetBtn)
 
 document.onkeydown = function (event) {
     var e = event || window.event || arguments.callee.caller.arguments[0];
