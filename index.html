@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+
+<style>
+body {
+  background-color: #1e1f24;
+}
+
+#title {
+  position: fixed;
+  width: 100%;
+  top: 5%;
+  font-size: 64px;
+  color: #f6eeda;
+  text-align: center;
+}
+
+.qr_area {
+  position: fixed;
+  display: inline-block;
+  top: 25%;
+  height: 50%;
+  width: 25%;
+  background-color: #30333a;
+  border: 1px solid #30333a;
+  border-radius: 48px;
+}
+
+#left_area {
+  left: 15%;
+}
+
+#right_area {
+  left: 60%;
+}
+
+.qr_name {
+  position: relative;
+  text-align: center;
+  top: 5%;
+  font-size: 48px;
+  color: #f6eeda;
+}
+
+.qr_pic {
+  position: relative;
+  top: 10%;
+  left: 20%;
+  height: 60%;
+  width: 60%;
+}
+</style>
+
+<html>
+<body>
+  <div id="title">
+  扫描二维码开始充电
+  </div>
+
+  <div id="left_area" class="qr_area">
+    <div id="left_name" class="qr_name">
+    </div>
+    <img id="left_qrcode" class="qr_pic"/>
+  </div>
+
+  <div id="right_area" class="qr_area">
+    <div id="right_name" class="qr_name">
+    </div>
+    <img id="right_qrcode" class="qr_pic"/>
+  </div>
+
+  <script>
+    require('./index.js')
+  </script>
+</body>
+</html>

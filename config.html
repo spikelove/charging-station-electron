@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+
+<html>
+
+<style>
+  body {
+    background-color: #1e1f24;
+  }
+
+  #config {
+    position: relative;
+    display: inline-block;
+  }
+
+  #test {
+    position: fixed;
+    left: 50%;
+    display: inline-block;
+  }
+
+  .title {
+    position: relative;
+    top: 30px;
+    font-size: 40px;
+    color: #f6eeda;
+  }
+
+  #content {
+    position: relative;
+    top: 50px;
+  }
+
+  button {
+    position: relative;
+    font-size: 28px;
+    top: 50px;
+  }
+
+  .divButton {
+    top: 50px;
+  }
+
+  label {
+    font-size: 20px;
+    color: #f6eeda;
+  }
+
+  input {
+    margin-top: 5px;
+    border: 1px solid #ccc;
+    padding: 7px 0px;
+    border-radius: 3px;
+    padding-left: 5px;
+    -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075);
+    box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075);
+    -webkit-transition: border-color ease-in-out .15s, -webkit-box-shadow ease-in-out .15s;
+    -o-transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
+    transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s
+  }
+
+  input:focus {
+    border-color: #66afe9;
+    outline: 0;
+    -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075), 0 0 8px rgba(102, 175, 233, .6);
+    box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075), 0 0 8px rgba(102, 175, 233, .6)
+  }
+</style>
+
+<body>
+  <div id="config">
+    <div class="title">
+      充电桩参数配置
+    </div>
+
+    <div id="content">
+      <label for='gunLeftNum'>左枪口号 :</label></br>
+      <input id="gunLeftNum" type="text"></br></br>
+
+      <label for='gunLeftName'>左枪口显示名称 :</label></br>
+      <input id="gunLeftName" type="text"></br></br>
+
+      <label for='gunRightNum'>右枪口号 :</label></br>
+      <input id="gunRightNum" type="text"></br></br>
+
+      <label for='gunRightName'>右枪口显示名称 :</label></br>
+      <input id="gunRightName" value="充电02" type="text"></br></br>
+
+      <label for='appServerIp'>服务器地址 :</label></br>
+      <input id="appServerIp" type="text"></br></br>
+
+      <label for='appServerPort'>服务器端口 :</label></br>
+      <input id="appServerPort" type="text"></br></br>
+
+      <label for='stationServerPort'>本机服务端口 :</label></br>
+      <input id="stationServerPort" type="text"></br></br>
+
+      <label for='qrcodeTime'>扫码界面持续时间(单位:秒) :</label></br>
+      <input id="qrcodeTime" type="text"></br></br>
+
+      <label for='adverTime'>广告图片切换间隔时间(单位:秒) :</label></br>
+      <input id="adverTime" type="text"></br></br>
+
+      <label for='gunLeftAddr'>左枪口物理地址 :</label></br>
+      <input id="gunLeftAddr" type="text"></br></br>
+
+      <label for='gunRightAddr'>右枪口物理地址 :</label></br>
+      <input id="gunRightAddr" type="text"></br></br>
+    </div>
+    <button id='configBtn'>保存配置</button>
+  </div>
+
+  <div id="test">
+    <div class="title">
+      充电测试
+    </div>
+    <button id='startChargeBtn'>开始充电</button> 
+    <button id='stopChargeBtn'>结束充电</button>
+  </div>
+</body>
+
+<script>
+  require('./config.js')
+</script>
+
+</html>
