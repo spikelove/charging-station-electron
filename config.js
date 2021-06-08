@@ -29,46 +29,92 @@ function onConfigBtn() {
     window.location.href = 'index.html'
 }
 
-function onStartCharge() {
-    console.log('click start charge btn')
-    ipcRenderer.send('start-charge', null)
+let mGun = 'left'
+
+function onStartLeftCharge() {
+    console.log('click start left charge btn')
+    let msg = 'left'
+    mGun = 'left'
+    ipcRenderer.send('start-charge', msg)
+    document.getElementById('rightResult').innerHTML = ''
 }
 
-function onStopCharge() {
-    console.log('click stop charge btn')
-    ipcRenderer.send('stop-charge', null)
+function onStopLeftCharge() {
+    console.log('click stop left charge btn')
+    let msg = 'left'
+    mGun = 'left'
+    ipcRenderer.send('stop-charge', msg)
+    document.getElementById('rightResult').innerHTML = ''
 }
 
-// int-get 应答
-ipcRenderer.on('int-get', (event, arg) => {
-    document.getElementById('intReturnVal').innerHTML = arg
+function onStartRightCharge() {
+    console.log('click start right charge btn')
+    let msg = 'right'
+    mGun = 'right'
+    ipcRenderer.send('start-charge', msg)
+    document.getElementById('rightResult').innerHTML = ''
+}
+
+function onStopRightCharge() {
+    console.log('click stop right charge btn')
+    let msg = 'right'
+    mGun = 'right'
+    ipcRenderer.send('stop-charge', msg)
+    document.getElementById('rightResult').innerHTML = ''
+}
+
+// 向主线程发送一个异步消息，用于主线程保存异步通信句柄
+ipcRenderer.send('async', null)
+
+//{
+//    gun: 0;
+//    result: 0;
+//}
+ipcRenderer.on('start-result', (event, arg) => {
+    console.log('start result: ' + arg)
+    if (mGun == 'left') {
+        document.getElementById('leftResult').innerHTML = arg
+    } else {
+        document.getElementById('rightResult').innerHTML = arg
+    }
 })
 
-function onIntGetBtn() {
-    addr = document.getElementById('intAddrInput').value
-    ipcRenderer.send('int-get', addr)
-    document.getElementById('intReturnVal').innerHTML = '正在执行 . . .'
-}
-
-// int-set 应答
-ipcRenderer.on('int-set', (event, arg) => {
-    document.getElementById('intReturnVal').innerHTML = arg
+ipcRenderer.on('stop-result', (event, arg) => {
+    console.log('stop result: ' + arg)
+    if (mGun == 'left') {
+        document.getElementById('leftResult').innerHTML = arg
+    } else {
+        document.getElementById('rightResult').innerHTML = arg
+    }
 })
 
-function onIntSetBtn() {
-    var msg = {}
-    msg.addr = document.getElementById('intAddrInput').value
-    msg.val = document.getElementById('intValInput').value
-    ipcRenderer.send('int-set', msg)
-    document.getElementById('intReturnVal').innerHTML = '正在执行 . . .'
-}
+ipcRenderer.on('gun-status', (event, arg) => {
+    console.log('gun status gun: <' + arg.gun + '> gunStatus: <' + arg.gunStatus + '> carStatus <' + arg.carStatus + '>')
+
+    if (arg.gun == remote.getGlobal('charge').gunLeftAddr) {
+        document.getElementById('leftGunStatus').innerHTML = arg.gunStatus
+        document.getElementById('leftCarStatus').innerHTML = arg.carStatus
+    } else if (arg.gun == remote.getGlobal('charge').gunRightAddr) {
+        document.getElementById('rightGunStatus').innerHTML = arg.gunStatus
+        document.getElementById('rightCarStatus').innerHTML = arg.carStatus
+    }
+})
+
+//{
+//    gun: 0;
+//    gunStatus: 0;
+//    carStatus: 0;
+//}
+ipcRenderer.on('report-status', (event, arg) => {
+    document.getElementById('intReturnVal').innerHTML = arg
+})
 
 document.getElementById('configBtn').addEventListener('click', onConfigBtn)
-document.getElementById('startChargeBtn').addEventListener('click', onStartCharge)
-document.getElementById('stopChargeBtn').addEventListener('click', onStopCharge)
 
-document.getElementById('intGetBtn').addEventListener('click', onIntGetBtn)
-document.getElementById('intSetBtn').addEventListener('click', onIntSetBtn)
+document.getElementById('startLeftChargeBtn').addEventListener('click', onStartLeftCharge)
+document.getElementById('stopLeftChargeBtn').addEventListener('click', onStopLeftCharge)
+document.getElementById('startRightChargeBtn').addEventListener('click', onStartRightCharge)
+document.getElementById('stopRightChargeBtn').addEventListener('click', onStopRightCharge)
 
 document.onkeydown = function (event) {
     var e = event || window.event || arguments.callee.caller.arguments[0];
@@ -76,3 +122,4 @@ document.onkeydown = function (event) {
         window.location.href = 'index.html'
     }
 }
+

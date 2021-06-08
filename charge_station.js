@@ -4,27 +4,29 @@ const { app, BrowserWindow, ipcMain } = require('electron')
 
 var stationServer = new StationServer()
 
-var mIntGetIpc = null
-var mIntSetIpc = null
+var mAsyncIpc = null
+
+ipcMain.on('async', (event, arg) => {
+    mAsyncIpc = event
+})
 
 ipcMain.on('start-charge', (event, arg) => {
-    console.log("ui start charge >>>>>")
-    stationServer.startChargeByMin(global.charge.gunLeftAddr, 10)
+    let addr = global.charge.gunLeftAddr 
+    if (arg == 'right') {
+        addr = global.charge.gunRightAddr
+    }
+    console.log('ui start charge <' + arg + '> addr: <' + addr + '>')
+    stationServer.startChargeByMin(addr, 10)
 })
 
 ipcMain.on('stop-charge', (event, arg) => {
-    console.log("ui start charge >>>>>")
-    stationServer.stopCharge(global.charge.gunLeftAddr)
-})
+    let addr = global.charge.gunLeftAddr 
+    if (arg == 'right') {
+        addr = global.charge.gunRightAddr
+    }
 
-ipcMain.on('int-get', (event, arg) => {
-    mIntGetIpc = event
-    stationServer.getIntParam(parseInt(arg))
-})
-
-ipcMain.on('int-set', (event, arg) => {
-    mIntSetIpc = event
-    stationServer.setIntParam(parseInt(arg.addr), parseInt(arg.val))
+    console.log('ui stop charge <' + arg + '> addr: <' + addr + '>')
+    stationServer.stopCharge(addr)
 })
 
 function ChargeStation() {
@@ -48,15 +50,8 @@ function ChargeStation() {
     }
 
     function onStationNotify(event, msg) {
-        if (event == 'int-get') {
-            if (mIntGetIpc != null) {
-                mIntGetIpc.reply('int-get', msg)
-            }
-        } else if (event == 'int-set') {
-            if (mIntSetIpc != null) {
-                mIntSetIpc.reply('int-set', msg)
-            }
-        }
+        // 将充电桩的通知消息发送给界面处理
+        mAsyncIpc.reply(event, msg)
     }
 
     function run() {

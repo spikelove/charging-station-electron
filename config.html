@@ -9,22 +9,34 @@
 
   p {
     color: #f6eeda;
+    font-size: 20px;
   }
 
   span {
     color: #f6eeda;
   }
 
+  h2 {
+    color: #f6eeda;
+  }
+
+  img {
+    width: 46%;
+  }
+
   label {
     font-size: 20px;
     color: #f6eeda;
+    width: 200px;
+    display: inline-block;
+    text-align: right;
   }
 
   input {
     margin-top: 5px;
     border: 1px solid #ccc;
     padding: 7px 0px;
-    border-radius: 3px;
+   border-radius: 3px;
     padding-left: 5px;
     -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075);
     box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075);
@@ -40,119 +52,174 @@
     box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075), 0 0 8px rgba(102, 175, 233, .6)
   }
 
-  .cmdDiv {
-    position: relative;
-    border: solid 1px #f6eeda;
-    top: 5px;
-  }
-
-  .cmdBtn {
-    font-size: 20px;
+  .chargeBtn {
+    font-size: 24px;
+    padding: 5px;
+    margin: 10px;
   }
 
   #config {
     position: relative;
+    width: 25%;
     display: inline-block;
   }
 
   #test {
     position: fixed;
+    left: 28%;
+    width: 20%;
+    display: inline-block;
+  }
+
+  #errcode {
+    position: fixed;
     left: 50%;
+    display: inline-block;
+  }
+
+  .errpic {
     display: inline-block;
   }
 
   .title {
     position: relative;
+    padding: 20px;
     font-size: 40px;
     color: #f6eeda;
+    text-align: center;
   }
 
-  #content {
-    position: relative;
-    top: 50px;
+  .feature {
+    padding: 5px;
+    margin: 5px;
+    border: solid 1px #f6eeda;
+  }
+
+  .item {
+    margin: 5px;
   }
 
   #configBtn {
-    position: relative;
-    font-size: 28px;
-    top: 50px;
+    padding: 20px;
   }
 
-
+  #saveConfig {
+    display: block;
+    padding: 5px;
+    margin: auto;
+    font-size: 32px;
+  }
 </style>
 
 <body>
   <div id="config">
     <div class="title">
-      充电桩参数配置
+    充电桩参数配置
     </div>
-
-    <div id="content">
-      <label for='gunLeftNum'>左枪口号 :</label></br>
-      <input id="gunLeftNum" type="text"></br></br>
-
-      <label for='gunLeftName'>左枪口显示名称 :</label></br>
-      <input id="gunLeftName" type="text"></br></br>
-
-      <label for='gunRightNum'>右枪口号 :</label></br>
-      <input id="gunRightNum" type="text"></br></br>
-
-      <label for='gunRightName'>右枪口显示名称 :</label></br>
-      <input id="gunRightName" value="充电02" type="text"></br></br>
-
-      <label for='appServerIp'>服务器地址 :</label></br>
-      <input id="appServerIp" type="text"></br></br>
-
-      <label for='appServerPort'>服务器端口 :</label></br>
-      <input id="appServerPort" type="text"></br></br>
-
-      <label for='stationServerPort'>本机服务端口 :</label></br>
-      <input id="stationServerPort" type="text"></br></br>
-
-      <label for='qrcodeTime'>扫码界面持续时间(单位:秒) :</label></br>
-      <input id="qrcodeTime" type="text"></br></br>
-
-      <label for='adverTime'>广告图片切换间隔时间(单位:秒) :</label></br>
-      <input id="adverTime" type="text"></br></br>
-
-      <label for='gunLeftAddr'>左枪口物理地址 :</label></br>
-      <input id="gunLeftAddr" type="text"></br></br>
-
-      <label for='gunRightAddr'>右枪口物理地址 :</label></br>
-      <input id="gunRightAddr" type="text"></br></br>
+  
+    <div class="feature" id="configLeft">
+      <h2>左枪口设置</h2>
+  
+      <div class="item">
+        <label for='gunLeftAddr'>左枪口地址</label>
+        <input id="gunLeftAddr" type="text">
+      </div>
+  
+      <div class="item">
+        <label for='gunLeftNum'>左枪口编号</label>
+        <input id="gunLeftNum" type="text">
+      </div>
+  
+      <div class="item">
+        <label for='gunLeftName'>左枪口名称</label>
+        <input id="gunLeftName" type="text">
+      </div>
     </div>
-    <button id='configBtn'>保存配置</button>
+  
+    <div class="feature" id="configRight">
+      <h2>右枪口设置</h2>
+      <div class="item">
+        <label for='gunRightAddr'>右枪口地址</label>
+        <input id="gunRightAddr" type="text">
+      </div>
+  
+      <div class="item">
+        <label for='gunRightNum'>右枪口编号</label>
+        <input id="gunRightNum" type="text">
+      </div>
+  
+      <div class="item">
+        <label for='gunRightName'>右枪口名称</label>
+        <input id="gunRightName" value="充电02" type="text">
+      </div>
+    </div>
+  
+    <div class="feature" id="configSys">
+      <h2>系统设置</h2>
+      <div class="item">
+        <label for='appServerIp'>服务器地址 </label>
+        <input id="appServerIp" type="text">
+      </div>
+  
+      <div class="item">
+        <label for='appServerPort'>服务器端口 </label>
+        <input id="appServerPort" type="text">
+      </div>
+  
+      <div class="item">
+        <label for='stationServerPort'>本机服务端口 </label>
+        <input id="stationServerPort" type="text">
+      </div>
+  
+      <div class="item">
+        <label for='qrcodeTime'>扫码界面持续时间 </label>
+        <input id="qrcodeTime" type="text"><span> 秒</span>
+      </div>
+  
+      <div class="item">
+        <label for='adverTime'>广告图片切换间隔时间 </label>
+        <input id="adverTime" type="text"><span> 秒</span>
+      </div>
+    </div>
+  
+    <div id='configBtn'>
+        <button id='saveConfig'>保存配置</button>
+    </div>
   </div>
 
   <div id="test">
     <div class="title">
       充电测试
     </div>
-    <div class='cmdDiv'>
-      <button class='cmdBtn' id='startChargeBtn'>开始充电</button>
-      <button class='cmdBtn' id='stopChargeBtn'>结束充电</button>
-    </div>
-  
-    <div class='cmdDiv'>
-      <p>整形参数设置/查询(CMD = 1):</p>
-      <span>地址: </span><input id="intAddrInput">
-      <span>值: </span><input id="intValInput">
-      <button class='cmdBtn' id='intGetBtn'>查询</button>
-      <button class='cmdBtn' id='intSetBtn'>设置</button>
-      <p id='intReturnVal'>返回值</p>
+
+    <div class='feature' id='leftTest'>
+      <h2>左枪测试</h2>
+      <p>充电枪状态: <span id="leftGunStatus"></span></p>
+      <p>车连接状态: <span id="leftCarStatus"></span></p>
+      <button class='chargeBtn' id='startLeftChargeBtn'>开始充电</button>
+      <button class='chargeBtn' id='stopLeftChargeBtn'>结束充电</button>
+      <p>操作结果: <span id="leftResult"></span></p>
     </div>
 
-   <div class='cmdDiv'>
-      <p>充电桩控制命令(CMD = 5):</p>
-      <span>地址: </span><input id="ctlAddrInput">
-      <span>值: </span><input id="ctlValInput">
-      <button class="cmdBtn" id='ctlGetBtn'>查询</button>
-      <button class="cmdBtn" id='ctlSetBtn'>设置</button>
-      <p id='ctlReturnVal'>返回值</p>
+    <div class='feature' id='rightTest'>
+      <h2>右枪测试</h2>
+      <p>充电枪状态: <span id='rightGunStatus'></span></p>
+      <p>车连接状态: <span id='rightCarStatus'></span></p>
+      <button class='chargeBtn' id='startRightChargeBtn'>开始充电</button>
+      <button class='chargeBtn' id='stopRightChargeBtn'>结束充电</button>
+      <p>操作结果: <span id='rightResult'></span> </p>
+    </div>
+  </div>
+
+  <div id="errcode">
+    <div class="title">
+      状态码对照表
     </div>
   
+    <img src='./errcode/charge.png'>
+    <img src='./errcode/gun.png'>
   </div>
-</body>
+  </body>
 
 <script>
   require('./config.js')

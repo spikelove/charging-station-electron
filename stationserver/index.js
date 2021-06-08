@@ -228,6 +228,12 @@ function Station() {
         console.log('all charge cost : ' + allChargeCost);
         index += 4;
 
+        var msg = {}
+        msg.gun = gunNum
+        msg.gunStatus = gunStatus
+        msg.carStatus = carConnect
+        mNotify('gun-status', msg);
+
         return gunNum;
     }
 
@@ -357,9 +363,9 @@ function Station() {
         if (type == 0) {
             let val = d.readUInt32LE(offset)
             console.log('val: ' + val)
-            mNotify('int-get', val)
+            //mNotify('int-get', val)
         } else if (type == 1) {
-            mNotify('int-set', result)
+            //mNotify('int-set', result)
         }
     }
 
@@ -651,11 +657,11 @@ function Station() {
         // 开始充电应答
         } else if (cmd == 8) {
             let status = processStartChargeResponse(d);
-            mNotify('start', status);
+            mNotify('start-result', status);
         // 结束充电应答
         } else if (cmd == 6) {
             let status = processStopChargeResponse(d);
-            mNotify('stop', status);
+            mNotify('stop-result', status);
         // 充电过程中上报的bms信息
         } else if (cmd == 302) {
             processBmsRequest(d);
