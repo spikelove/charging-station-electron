@@ -1,6 +1,9 @@
 const remote = require('electron').remote;
 const { ipcRenderer } = require('electron')
 
+var sd = require('silly-datetime');
+ 
+
 document.getElementById('gunLeftNum').value = remote.getGlobal('charge').gunLeftNum 
 document.getElementById('gunLeftName').value = remote.getGlobal('charge').gunLeftName 
 document.getElementById('gunRightNum').value = remote.getGlobal('charge').gunRightNum 
@@ -30,6 +33,18 @@ function onConfigBtn() {
 }
 
 let mGun = 'left'
+
+let logdefault = '充电桩服务器启动, 监听端口: ' + remote.getGlobal('charge').stationServerPort
+let logtext = ''
+
+function log_display(msg) {
+    let logmsg = '[' + sd.format(new Date(), 'HH:mm') + '] ' + msg
+    let log = document.getElementById("logtext")
+    logtext = logmsg + '</br>' + logtext
+    log.innerHTML = logtext
+}
+
+log_display(logdefault)
 
 function onStartLeftCharge() {
     console.log('click start left charge btn')
@@ -108,6 +123,12 @@ ipcRenderer.on('gun-status', (event, arg) => {
 ipcRenderer.on('report-status', (event, arg) => {
     document.getElementById('intReturnVal').innerHTML = arg
 })
+
+ipcRenderer.on('log', (event, arg) => {
+    log_display(arg)
+})
+
+
 
 document.getElementById('configBtn').addEventListener('click', onConfigBtn)
 

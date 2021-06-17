@@ -38,7 +38,7 @@ function createWindow() {
         width: 1920,
         height: 1080,
         titleBarStyle: 'hidden',
-     //   fullscreen: true,
+        fullscreen: true,
         webPreferences: {
             nodeIntegration: true,
             contextIsolation: false,
@@ -46,7 +46,7 @@ function createWindow() {
         }
     })
 
-    //win.setMenuBarVisibility(false);
+    win.setMenuBarVisibility(false);
     win.loadURL(path.join('file://', __dirname, '/index.html'))
 }
 

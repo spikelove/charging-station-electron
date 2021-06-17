@@ -149,6 +149,8 @@ function Station() {
         // 电桩编号
         let num = d.toString('utf8', 4, 4 + 32);
         console.log('station number : ' + num);
+        let msg = '充电桩连接成功, 编号: ' + num
+        mNotify('log', msg);
     }
 
     function sendSignInResponse() {
@@ -267,6 +269,9 @@ function Station() {
 
     function sendStartChargeRequest(gunNum, mode, val) {
         console.log('station server : send cmd < 7 > : start charge cmd, gunNum : <' + gunNum + '> mode : <' + mode + '> val : <' + val + '> ');
+
+        let msg = '发送开始充电命令, 枪口号: ' + gunNum
+        mNotify('log', msg);
 
         let buf = Buffer.alloc(69 + 9);
         buf.fill(0);
@@ -685,8 +690,11 @@ function Station() {
     }
 
     function run(notify) {
+        let port = global.charge.stationServerPort
         mNotify = notify
-        mTcpServer.start(global.charge.stationServerPort, onRecvData);
+        mTcpServer.start(port, onRecvData);
+        let msg = '充电桩服务器启动, 监听端口: ' + port
+        mNotify('log', msg);
     }
 
     // 单位: min
@@ -709,6 +717,8 @@ function Station() {
     }
 
     function stopCharge(gunNum) {
+        let msg = '发送结束充电命令, 枪口号: ' + gunNum
+        mNotify('log', msg);
         sendChargeControlRequest(gunNum, 2, 0x55);
     }
 

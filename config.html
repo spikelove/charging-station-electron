@@ -9,7 +9,7 @@
 
   p {
     color: #f6eeda;
-    font-size: 20px;
+    font-size: 16px;
   }
 
   span {
@@ -25,18 +25,18 @@
   }
 
   label {
-    font-size: 20px;
+    font-size: 16px;
     color: #f6eeda;
     width: 200px;
     display: inline-block;
-    text-align: right;
+    text-align: left;
   }
 
   input {
     margin-top: 5px;
     border: 1px solid #ccc;
     padding: 7px 0px;
-   border-radius: 3px;
+    border-radius: 3px;
     padding-left: 5px;
     -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075);
     box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075);
@@ -58,23 +58,35 @@
     margin: 10px;
   }
 
+  #all {
+    width: 100%;
+  }
+
+  .module {
+    float: left;
+  }
+
   #config {
-    position: relative;
     width: 25%;
-    display: inline-block;
   }
 
   #test {
-    position: fixed;
-    left: 28%;
-    width: 20%;
-    display: inline-block;
+    width: 25%;
   }
 
   #errcode {
-    position: fixed;
-    left: 50%;
-    display: inline-block;
+    width: 50%;
+  }
+
+  #log {
+    float: bottom;
+    width: 50%;
+  }
+
+  #logtext {
+    height: 300px;
+    overflow-y: scroll;
+    border: solid 1px #f6eeda;
   }
 
   .errpic {
@@ -84,7 +96,7 @@
   .title {
     position: relative;
     padding: 20px;
-    font-size: 40px;
+    font-size: 32px;
     color: #f6eeda;
     text-align: center;
   }
@@ -100,7 +112,9 @@
   }
 
   #configBtn {
+    margin: 5px;
     padding: 20px;
+    border: solid 1px #f6eeda;
   }
 
   #saveConfig {
@@ -112,7 +126,8 @@
 </style>
 
 <body>
-  <div id="config">
+  <div id="all">
+  <div class="module" id="config">
     <div class="title">
     充电桩参数配置
     </div>
@@ -187,7 +202,7 @@
     </div>
   </div>
 
-  <div id="test">
+  <div class="module" id="test">
     <div class="title">
       充电测试
     </div>
@@ -211,13 +226,19 @@
     </div>
   </div>
 
-  <div id="errcode">
+  <div class="module" id="errcode">
     <div class="title">
       状态码对照表
     </div>
-  
     <img src='./errcode/charge.png'>
     <img src='./errcode/gun.png'>
+  </div>
+
+  <div class="module" id="log">
+  <p>version: 1.0</p>
+  <p id="logtext"></p>
+  </div>
+
   </div>
   </body>
 

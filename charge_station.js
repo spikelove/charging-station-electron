@@ -20,7 +20,7 @@ ipcMain.on('start-charge', (event, arg) => {
 })
 
 ipcMain.on('stop-charge', (event, arg) => {
-    let addr = global.charge.gunLeftAddr 
+    let addr = global.charge.gunLeftAddr
     if (arg == 'right') {
         addr = global.charge.gunRightAddr
     }
@@ -51,7 +51,9 @@ function ChargeStation() {
 
     function onStationNotify(event, msg) {
         // 将充电桩的通知消息发送给界面处理
-        mAsyncIpc.reply(event, msg)
+        if (mAsyncIpc != null) {
+            mAsyncIpc.reply(event, msg)
+        }
     }
 
     function run() {

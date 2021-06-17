@@ -1,3 +1,6 @@
 node_modules
 out
 npm-debug.log
+kiosk-charge-station-win32-ia32
+kiosk-charge-station-win32-ia32.7z
+.vscode
