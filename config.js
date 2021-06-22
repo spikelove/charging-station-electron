@@ -47,34 +47,52 @@ function log_display(msg) {
 log_display(logdefault)
 
 function onStartLeftCharge() {
-    console.log('click start left charge btn')
-    let msg = 'left'
     mGun = 'left'
-    ipcRenderer.send('start-charge', msg)
-    document.getElementById('rightResult').innerHTML = ''
-}
+    let modeSelect = document.getElementById('chargeMode')
+    let index = modeSelect.selectedIndex
+    let mode = modeSelect.options[index].value
+    let val = document.getElementById('chargeVal').value
 
-function onStopLeftCharge() {
-    console.log('click stop left charge btn')
-    let msg = 'left'
-    mGun = 'left'
-    ipcRenderer.send('stop-charge', msg)
+    let msg = {}
+    msg.mode = mode
+    msg.val = val
+    let log = '发送左枪充电命令 ' + mode + ' :: ' + val
+    log_display(log)
+    ipcRenderer.send('ui-start-charge-left', msg)
     document.getElementById('rightResult').innerHTML = ''
 }
 
 function onStartRightCharge() {
-    console.log('click start right charge btn')
-    let msg = 'right'
     mGun = 'right'
-    ipcRenderer.send('start-charge', msg)
+    let modeSelect = document.getElementById('chargeMode')
+    let index = modeSelect.selectedIndex
+    let mode = modeSelect.options[index].value
+    let val = document.getElementById('chargeVal').value
+
+    let msg = {}
+    msg.mode = mode
+    msg.val = val
+
+    let log = '发送右枪充电命令 ' + mode + ' :: ' + val
+    log_display(log)
+    ipcRenderer.send('ui-start-charge-right', msg)
+    document.getElementById('rightResult').innerHTML = ''
+}
+
+function onStopLeftCharge() {
+    mGun = 'left'
+    let log = '发送左枪停止充电命令 '
+    log_display(log)
+    ipcRenderer.send('ui-stop-charge-left', null)
     document.getElementById('rightResult').innerHTML = ''
 }
 
 function onStopRightCharge() {
-    console.log('click stop right charge btn')
-    let msg = 'right'
     mGun = 'right'
-    ipcRenderer.send('stop-charge', msg)
+
+    let log = '发送右枪停止充电命令 '
+    log_display(log)
+    ipcRenderer.send('ui-stop-charge-right', null)
     document.getElementById('rightResult').innerHTML = ''
 }
 

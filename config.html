@@ -32,8 +32,17 @@
     text-align: left;
   }
 
+  select {
+    width: 150px;
+    margin-bottom: 8px;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+    font-size: 24px;
+  }
+
   input {
-    margin-top: 5px;
+    width: 150px;
+    margin-botton: 8px;
     border: 1px solid #ccc;
     padding: 7px 0px;
     border-radius: 3px;
@@ -206,6 +215,18 @@
     <div class="title">
       充电测试
     </div>
+<div class='feature' id='chargeParam'>
+  <h2>充电模式</h2>
+  <select id='chargeMode'>
+    <option value='0'>自动充满</option>
+    <option value='1'>按时间冲电</option>
+    <option value='2'>按金额充电</option>
+    <option value='3'>按电量充电</option>
+  </select>
+  <div>
+    <input id='chargeVal' type="text" value='1000'><span>  (单位: 秒/0.01元/0.01千瓦)</span>
+  </div>
+</div>
 
     <div class='feature' id='leftTest'>
       <h2>左枪测试</h2>
@@ -235,7 +256,7 @@
   </div>
 
   <div class="module" id="log">
-  <p>version: 1.0</p>
+  <p>version: 1.1</p>
   <p id="logtext"></p>
   </div>
 

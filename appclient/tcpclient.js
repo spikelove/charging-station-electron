@@ -31,8 +31,9 @@ function TcpClient() {
         client.on('close', function(had_err) {
             notify('disconnect', null)
             setTimeout(function() {
+                notify('reconnect', null)
                 client.connect(port, host)
-            }, 10*1000)
+            }, 20*1000)
         })
 
         client.on('end', function() {

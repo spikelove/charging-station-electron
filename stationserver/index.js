@@ -234,6 +234,7 @@ function Station() {
         msg.gun = gunNum
         msg.gunStatus = gunStatus
         msg.carStatus = carConnect
+
         mNotify('gun-status', msg);
 
         return gunNum;
@@ -267,6 +268,7 @@ function Station() {
         sendCmd(103, buf);
     }
 
+    // 0-自动充满 1-按时间 2-按金额 3-按电量
     function sendStartChargeRequest(gunNum, mode, val) {
         console.log('station server : send cmd < 7 > : start charge cmd, gunNum : <' + gunNum + '> mode : <' + mode + '> val : <' + val + '> ');
 
@@ -697,25 +699,6 @@ function Station() {
         mNotify('log', msg);
     }
 
-    // 单位: min
-    function startChargeByMin(gunNum, min) {
-        sendStartChargeRequest(gunNum, 1, min * 60);
-    }
-
-    // 单位: 0.01kw
-    function startChargeByPower(gunNum, kw) {
-        sendStartChargeRequest(gunNum, 3, kw); 
-    }
-
-    // 单位: 0.01yuan
-    function startChargeByAmount(gunNum, yuan) {
-        sendStartChargeRequest(gunNum, 2, yuan);
-    }
-
-    function startChargeByAutofull(gunNum) {
-        sendStartChargeRequest(gunNum, 0, 0);
-    }
-
     function stopCharge(gunNum) {
         let msg = '发送结束充电命令, 枪口号: ' + gunNum
         mNotify('log', msg);
@@ -724,10 +707,7 @@ function Station() {
 
     return {
         run : run,
-        startChargeByMin : startChargeByMin,
-        startChargeByPower : startChargeByPower,
-        startChargeByAmount : startChargeByAmount,
-        startChargeByAutofull : startChargeByAutofull,
+        startCharge : sendStartChargeRequest,
         stopCharge : stopCharge,
         getIntParam: sendGetIntParamRequest,
         setIntParam: sendSetIntParamRequest,
